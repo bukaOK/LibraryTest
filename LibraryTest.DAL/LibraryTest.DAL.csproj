@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190719093616_Init.cs" />
+    <Compile Remove="Migrations\20190719093616_Init.Designer.cs" />
+    <Compile Remove="Migrations\20190719093751_Init.cs" />
+    <Compile Remove="Migrations\20190719093751_Init.Designer.cs" />
+    <Compile Remove="Migrations\20190720110959_ClientIdNull.cs" />
+    <Compile Remove="Migrations\20190720110959_ClientIdNull.Designer.cs" />
+    <Compile Remove="Migrations\20190720144012_AddBookMove.cs" />
+    <Compile Remove="Migrations\20190720144012_AddBookMove.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.6" />
+    <PackageReference Include="Npgsql" Version="4.0.7" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibraryTest.CodeData\LibraryTest.CodeData.csproj" />
+  </ItemGroup>
+
+</Project>
