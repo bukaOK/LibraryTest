@@ -60,6 +60,9 @@
             <q-item-section side>
               <q-btn round flat icon="edit" class="text-grey-5" :to="`/clients/edit/${client.id}`" />
             </q-item-section>
+            <q-item-section side>
+              <q-btn round flat icon="book" class="text-grey-5" @click="showClientBooksDialog(client.id)" />
+            </q-item-section>
           </q-item>
         </q-list>
         <q-card-section v-else>
@@ -67,6 +70,27 @@
         </q-card-section>
       </q-card>
     </div>
+    <q-dialog v-model="clientBooks.dialog">
+      <q-card style="width: 380px">
+        <q-card-section>
+          <div class="text-h5">Книги клиента</div>
+        </q-card-section>
+        <q-card-section class="text-center" v-if="clientBooks.loading">
+          <div class="text-h6">Загрузка...</div>
+        </q-card-section>
+        <q-list v-else-if="clientBooks.books.length">
+          <q-item v-for="book in clientBooks.books" :key="book.id">
+            <q-item-section>
+              <q-item-label class="text-subtitle1">{{book.name}}</q-item-label>
+              <q-item-label caption>{{book.author}}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+        <q-card-section v-else>
+          <div class="text-h6">Книг нет</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 <script>
@@ -85,7 +109,13 @@ export default {
       searchPhone: '',
       clients: [],
       clientType: clientTypes.all,
-      loading: false
+      loading: false,
+      clientBooks: {
+        clientId: null,
+        dialog: false,
+        books: [],
+        loading: false
+      }
     }
   },
   computed: {
@@ -152,6 +182,18 @@ export default {
           })
         }).finally(() => {
           this.loading = false
+        })
+    },
+    showClientBooksDialog(clientId){
+      const cb = this.clientBooks
+
+      cb.loading = true
+      cb.dialog = true
+      this.$api.get('/books/getbyclient/' + clientId)
+        .then(resp => {
+          cb.books = resp.data
+        }).finally(() => {
+          cb.loading = false
         })
     }
   }

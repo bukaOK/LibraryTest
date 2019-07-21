@@ -9,6 +9,7 @@ namespace LibraryTest.BLL.Services.Interfaces
 {
     public interface IBookService : IDataService
     {
+        Task<IList<CatalogBookModel>> GetByClientAsync(Guid clientId);
         Task<BookModel> GetForEditAsync(Guid id);
         Task<BookListModel> GetCatalogAsync(BookFilterModel filterModel);
         Task<DataServiceResult> AddAsync(BookModel model);

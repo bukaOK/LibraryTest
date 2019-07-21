@@ -48,6 +48,12 @@ namespace LibraryTest.Controllers
             return Ok(result);
         }
 
+        public async Task<IActionResult> GetByClient(Guid id)
+        {
+            var result = await bookService.GetByClientAsync(id);
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Update(BookModel model)
         {

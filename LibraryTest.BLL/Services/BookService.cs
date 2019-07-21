@@ -102,6 +102,12 @@ namespace LibraryTest.BLL.Services
             }
         }
 
+        public async Task<IList<CatalogBookModel>> GetByClientAsync(Guid clientId)
+        {
+            var books = await bookRepository.GetByClientAsync(clientId);
+            return mapper.Map<IList<CatalogBookModel>>(books);
+        }
+
         public async Task<BookListModel> GetCatalogAsync(BookFilterModel filterModel)
         {
             var rowsPerPage = int.Parse(configuration["filter:rowsPerPage"]);
